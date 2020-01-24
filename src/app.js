@@ -5,6 +5,7 @@ import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { login, logout } from './actions/auth';
 import { startSetExpenses } from './actions/expenses';
+import { startSetAccounts } from './actions/accounts';
 import getVisibleExpenses from './selectors/expenses'; 
 import normalizeCss from 'normalize.css';
 import scss from './styles/styles.scss';
@@ -47,6 +48,9 @@ ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         store.dispatch(login(user.uid));
+        store.dispatch(startSetAccounts()).then(() => {
+           
+        });
         store.dispatch(startSetExpenses()).then(() => {
             renderApp();
             if (history.location.pathname === '/') {
