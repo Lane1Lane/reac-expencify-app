@@ -5,7 +5,8 @@ const filterReducerDefaultState = {
     text: '',
     sortBy: 'date', // date or amount
     startDate: moment().startOf('month'),
-    endDate: moment().endOf('month')
+    endDate: moment().endOf('month'),
+    accounts: []
   };
   
 export default (state = filterReducerDefaultState, action) => {
@@ -29,6 +30,11 @@ switch (action.type) {
     return {
         ...state,
         endDate: action.endDate
+    }
+    case 'SET_ACCOUNT_FILTER':
+    return {
+        ...state,
+        accounts: action.accounts
     }
     default:
     return state;

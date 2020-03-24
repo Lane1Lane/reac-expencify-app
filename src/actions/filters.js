@@ -22,3 +22,8 @@ export const setEndDate = (endDate) => ({
 type: 'SET_END_DATE',
 endDate
 });
+
+export const setAccountFilter = (accounts = []) => ({
+  type: 'SET_ACCOUNT_FILTER',
+  accounts
+});

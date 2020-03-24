@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
-import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate } from '../actions/filters';
+import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate, setAccountFilter } from '../actions/filters';
 import 'react-dates/initialize';
+import MultiSelect from "react-multi-select-component";
+
+
 
 export class ExpenseListFilters extends React.Component {
   state = {
-    calendarFocused: null
+    calendarFocused: null,
+    accounts: this.props.accounts.map((account) => {return {'label': account.name, 'value': account.id}}),
+    selectedAccounts: this.props.accounts.map((account) => {return {'label': account.name, 'value': account.id}}),
+    loadFirst: true
   };
+  
   onDatesChange = ({ startDate, endDate }) => {
     this.props.setStartDate(startDate);
     this.props.setEndDate(endDate);
@@ -25,9 +32,32 @@ export class ExpenseListFilters extends React.Component {
       this.props.sortByAmount();
     }
   };
+  onAccountsChange = (e) => {
+    let selectedAccounts = Array.from(e);
+    this.setState(() => ({ selectedAccounts }))
+    this.props.setAccountFilter(selectedAccounts.map((account) => account.value));
+  }
   render() {
+    if (this.state.loadFirst) {
+      this.props.setAccountFilter(this.state.accounts.map((account) => account.value));
+      this.state.loadFirst = false;
+    }
     return (
       <div className="content-container">
+        <div className="input-group-wide">
+          <div className="input-group__item">
+            <MultiSelect
+              options={this.state.accounts}
+              value={this.state.selectedAccounts}
+              onChange={this.onAccountsChange}
+              labelledBy={"Счёт"}
+              overrideStrings={{"selectSomeItems": "Выбрать счета...",
+              "allItemsAreSelected": "Выбраны все счета",
+              "selectAll": "Выбрать все счета",
+              "search": "Поиск"}}
+            />
+          </div>
+        </div>
         <div className="input-group">
           <div className="input-group__item">
             <input
@@ -69,7 +99,8 @@ export class ExpenseListFilters extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-  filters: state.filters
+  filters: state.filters,
+  accounts: state.accounts
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -77,7 +108,8 @@ const mapDispatchToProps = (dispatch) => ({
   sortByDate: () => dispatch(sortByDate()),
   sortByAmount: () => dispatch(sortByAmount()),
   setStartDate: (startDate) => dispatch(setStartDate(startDate)),
-  setEndDate: (endDate) => dispatch(setEndDate(endDate))
+  setEndDate: (endDate) => dispatch(setEndDate(endDate)),
+  setAccountFilter: (accounts) => dispatch(setAccountFilter(accounts))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseListFilters);
