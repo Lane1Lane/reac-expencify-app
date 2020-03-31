@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { connect } from 'react-redux';
 moment.locale('uk');
 
 const filterReducerDefaultState = {
@@ -6,10 +7,11 @@ const filterReducerDefaultState = {
     sortBy: 'date', // date or amount
     startDate: moment().startOf('month'),
     endDate: moment().endOf('month'),
-    accounts: []
+    accounts: [],
+    updateAccounts: true
   };
   
-export default (state = filterReducerDefaultState, action) => {
+  export default (state = filterReducerDefaultState, action) => {
 switch (action.type) {
     case 'SET_TEXT_FILTER':
     return {
@@ -34,9 +36,12 @@ switch (action.type) {
     case 'SET_ACCOUNT_FILTER':
     return {
         ...state,
-        accounts: action.accounts
+        accounts: action.accounts,
+        updateAccounts: action.updateAccounts
     }
     default:
     return state;
 };
 };
+
+

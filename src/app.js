@@ -6,6 +6,7 @@ import configureStore from './store/configureStore';
 import { login, logout } from './actions/auth';
 import { startSetExpenses } from './actions/expenses';
 import { startSetAccounts } from './actions/accounts';
+import { startSetCategories } from './actions/categories';
 import getVisibleExpenses from './selectors/expenses'; 
 import normalizeCss from 'normalize.css';
 import scss from './styles/styles.scss';
@@ -49,6 +50,9 @@ firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         store.dispatch(login(user.uid));
         store.dispatch(startSetAccounts()).then(() => {
+           
+        });
+        store.dispatch(startSetCategories()).then(() => {
            
         });
         store.dispatch(startSetExpenses()).then(() => {

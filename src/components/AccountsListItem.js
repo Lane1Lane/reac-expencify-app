@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import numeral from 'numeral';
+import { connect } from 'react-redux';
+import { setAccountFilter } from '../actions/filters';
 
 // numeral.register('locale', 'ukr', {
 //     delimiters: {
@@ -23,8 +25,8 @@ import numeral from 'numeral';
 
 numeral.locale('ukr');
 
-const AccountsListItem = ({ id, name, amount }) => (
-    <Link className="list-item" to={`/dashboard`} onClick={() => {console.log('test')}}>
+const AccountsListItem = ({ id, name, amount, ...props }) => (
+    <Link className="list-item" to={`/dashboard`} onClick={() => {props.setAccountFilter([{'label': name, 'value': id}])}}>
         <div>
             <h3 className="list-item__title">{name}</h3>
         </div>
@@ -32,4 +34,9 @@ const AccountsListItem = ({ id, name, amount }) => (
     </Link>
 );
 
-export default AccountsListItem;
+const mapDispatchToProps = (dispatch) => ({
+    setAccountFilter: (accounts) => dispatch(setAccountFilter(accounts))
+})
+
+export default connect(undefined, mapDispatchToProps)(AccountsListItem);
+

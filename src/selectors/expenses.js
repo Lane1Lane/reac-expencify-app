@@ -6,8 +6,8 @@ export default (expenses, { accounts, text, sortBy = 'date', startDate, endDate 
       const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true
       const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true
       const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
-      const accountMatch = accounts.indexOf(expense.account);
-
+      const accountMatch = accounts.map((account) => account.value).indexOf(expense.account);
+      
       return startDateMatch && endDateMatch && textMatch && (accountMatch !== -1);
     }).sort((a, b) => {
       if (sortBy === 'date') {

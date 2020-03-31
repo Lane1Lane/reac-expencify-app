@@ -5,6 +5,7 @@ import selectExpenses from '../selectors/expenses';
 import accounts from '../reducers/accounts';
 
 export const ExpenseList = (props) => {
+  console.log('from ExpenseList',props.filters)
   return <div className="content-container">
     <div className="list-header">
       <div className="show-for-mobile">Расходы</div>
@@ -31,7 +32,8 @@ export const ExpenseList = (props) => {
 const mapStateToProps = (state) => {
   return {
     expenses: selectExpenses(state.expenses, state.filters),
-    accounts: state.accounts
+    accounts: state.accounts,
+    filters: state.filters
   };
 };
 

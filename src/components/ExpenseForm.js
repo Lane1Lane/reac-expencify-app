@@ -2,6 +2,8 @@ import React from 'react';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import { connect } from 'react-redux';
+import CreatableSelect from 'react-select/creatable';
+import { startAddCategory } from '../actions/categories';
 
 class ExpenseForm extends React.Component {
   constructor(props) {
@@ -9,6 +11,7 @@ class ExpenseForm extends React.Component {
 
     this.state = {
       expenseType: props.expense ? props.expense.expenseType : -1,
+      category: props.expense ? props.expense.category ? props.expense.category.split(',') : [] : [],
       account: props.expense ? props.expense.account : props.accounts[0].id,
       description: props.expense ? props.expense.description : '',
       note: props.expense ? props.expense.note : '',
@@ -22,7 +25,21 @@ class ExpenseForm extends React.Component {
   }
   onExpenseTypeChange = (e) => {
     const expenseType = +e.target.value;
-    this.setState(() => ({ expenseType }));
+    this.setState(() => ({ expenseType, 'category': [] }));
+  }
+  onCreateCategory = (newCategory) => {
+    
+    let newCat = {'label': newCategory, 'type': this.state.expenseType}
+    this.props.addCategory(newCat).then((key) => {
+      const category = this.state.category;
+      category.push(key);
+      this.setState(() => ({ category }))
+    });
+  }
+  onCategoryChange = (e,action) => {
+    let category = [];
+    if (e) { category = e.map((cat) => cat.value)};
+    this.setState(() => ({ category }));
   }
   onAccountChange = (e) => {
     const account = e.target.value;
@@ -59,6 +76,7 @@ class ExpenseForm extends React.Component {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
         expenseType: this.state.expenseType,
+        category: this.state.category.join(),
         account: this.state.account,
         description: this.state.description,
         amount: parseFloat(this.state.amount, 10) * 100 * this.state.expenseType,
@@ -95,6 +113,17 @@ class ExpenseForm extends React.Component {
                 {account.name}
             </option>)}
         </select>
+        <CreatableSelect
+          classNamePrefix="text-input"
+          options={this.props.categories.filter((category) => category.type === this.state.expenseType)}
+          value={this.state.category.map((cat) => ({'value' : cat, 'label': this.props.categories.find(catName => catName.value === cat).label}))}
+          onCreateOption={this.onCreateCategory}
+          onChange={this.onCategoryChange}
+          isMulti
+          noOptionsMessage={() => "Категории не созданы"}
+          formatCreateLabel={() => "Создать новую категорию"}
+          placeholder="Категория"
+        />
         <input
           type="text"
           placeholder="Описание"
@@ -133,13 +162,19 @@ class ExpenseForm extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  addCategory: (category) => dispatch(startAddCategory(category))
+});
 
 const mapStateToProps = (state) => {
   return {
       accounts: state.accounts.sort((a, b) => {
           return (b.name < a.name) ? 1 : -1;
+      }),
+      categories: state.categories.sort((a, b) => {
+        return (b.name < a.name) ? 1 : -1;
       })
   };
 };
 
-export default connect(mapStateToProps)(ExpenseForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseForm);

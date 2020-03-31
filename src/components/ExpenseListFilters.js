@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
 import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate, setAccountFilter } from '../actions/filters';
@@ -11,7 +11,6 @@ export class ExpenseListFilters extends React.Component {
   state = {
     calendarFocused: null,
     accounts: this.props.accounts.map((account) => {return {'label': account.name, 'value': account.id}}),
-    selectedAccounts: this.props.accounts.map((account) => {return {'label': account.name, 'value': account.id}}),
     loadFirst: true
   };
   
@@ -34,13 +33,12 @@ export class ExpenseListFilters extends React.Component {
   };
   onAccountsChange = (e) => {
     let selectedAccounts = Array.from(e);
-    this.setState(() => ({ selectedAccounts }))
-    this.props.setAccountFilter(selectedAccounts.map((account) => account.value));
+    this.props.setAccountFilter(selectedAccounts);
+    
   }
   render() {
-    if (this.state.loadFirst) {
-      this.props.setAccountFilter(this.state.accounts.map((account) => account.value));
-      this.state.loadFirst = false;
+    if (this.props.filters.updateAccounts) {
+      this.props.setAccountFilter(this.state.accounts);
     }
     return (
       <div className="content-container">
@@ -48,9 +46,9 @@ export class ExpenseListFilters extends React.Component {
           <div className="input-group__item">
             <MultiSelect
               options={this.state.accounts}
-              value={this.state.selectedAccounts}
+              value={this.props.filters.accounts}
               onChange={this.onAccountsChange}
-              labelledBy={"Счёт"}
+              // labelledBy={"Счёт"}
               overrideStrings={{"selectSomeItems": "Выбрать счета...",
               "allItemsAreSelected": "Выбраны все счета",
               "selectAll": "Выбрать все счета",

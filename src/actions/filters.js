@@ -25,5 +25,6 @@ endDate
 
 export const setAccountFilter = (accounts = []) => ({
   type: 'SET_ACCOUNT_FILTER',
-  accounts
+  accounts,
+  updateAccounts: false
 });
