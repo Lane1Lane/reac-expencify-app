@@ -28,3 +28,9 @@ export const setAccountFilter = (accounts = []) => ({
   accounts,
   updateAccounts: false
 });
+
+export const setCategoriesFilter = (categories = []) => ({
+  type: 'SET_CATEGORY_FILTER',
+  categories
+});
+

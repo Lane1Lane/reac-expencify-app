@@ -8,7 +8,8 @@ const filterReducerDefaultState = {
     startDate: moment().startOf('month'),
     endDate: moment().endOf('month'),
     accounts: [],
-    updateAccounts: true
+    updateAccounts: true,
+    categories: []
   };
   
   export default (state = filterReducerDefaultState, action) => {
@@ -38,6 +39,11 @@ switch (action.type) {
         ...state,
         accounts: action.accounts,
         updateAccounts: action.updateAccounts
+    }
+    case 'SET_CATEGORY_FILTER':
+    return {
+        ...state,
+        categories: action.categories
     }
     default:
     return state;

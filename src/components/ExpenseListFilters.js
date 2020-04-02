@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
-import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate, setAccountFilter } from '../actions/filters';
+import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate, setAccountFilter, setCategoriesFilter } from '../actions/filters';
 import 'react-dates/initialize';
 import MultiSelect from "react-multi-select-component";
 
@@ -36,22 +36,42 @@ export class ExpenseListFilters extends React.Component {
     this.props.setAccountFilter(selectedAccounts);
     
   }
+  onCategoriesChange = (e) => {
+    let selectedCategories = Array.from(e);
+    this.props.setCategoriesFilter(selectedCategories);
+  }
   render() {
-    if (this.props.filters.updateAccounts) {
-      this.props.setAccountFilter(this.state.accounts);
-    }
+    // if (this.props.filters.updateAccounts) {
+    //   this.props.setAccountFilter(this.state.accounts);
+    // }
     return (
       <div className="content-container">
         <div className="input-group-wide">
           <div className="input-group__item">
             <MultiSelect
-              options={this.state.accounts}
+              options={this.state.accounts.sort((a, b) => {
+                return (b.label < a.label) ? 1 : -1;
+              })}
               value={this.props.filters.accounts}
               onChange={this.onAccountsChange}
               // labelledBy={"Счёт"}
-              overrideStrings={{"selectSomeItems": "Выбрать счета...",
+              overrideStrings={{"selectSomeItems": "Фильтр по счетам...",
               "allItemsAreSelected": "Выбраны все счета",
-              "selectAll": "Выбрать все счета",
+              "selectAll": "Выбрать/отменить все счета",
+              "search": "Поиск"}}
+            />
+          </div>
+          <div className="input-group__item">
+            <MultiSelect
+              options={this.props.categories.sort((a, b) => {
+                return (b.label < a.label) ? 1 : -1;
+              })}
+              value={this.props.filters.categories}
+              onChange={this.onCategoriesChange}
+              // labelledBy={"Счёт"}
+              overrideStrings={{"selectSomeItems": "Фильтр по категориям...",
+              "allItemsAreSelected": "Выбраны все категории",
+              "selectAll": "Выбрать/отменить все категории",
               "search": "Поиск"}}
             />
           </div>
@@ -98,7 +118,8 @@ export class ExpenseListFilters extends React.Component {
 
 const mapStateToProps = (state) => ({
   filters: state.filters,
-  accounts: state.accounts
+  accounts: state.accounts,
+  categories: state.categories
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -107,7 +128,8 @@ const mapDispatchToProps = (dispatch) => ({
   sortByAmount: () => dispatch(sortByAmount()),
   setStartDate: (startDate) => dispatch(setStartDate(startDate)),
   setEndDate: (endDate) => dispatch(setEndDate(endDate)),
-  setAccountFilter: (accounts) => dispatch(setAccountFilter(accounts))
+  setAccountFilter: (accounts) => dispatch(setAccountFilter(accounts)),
+  setCategoriesFilter: (categories) => dispatch(setCategoriesFilter(categories)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseListFilters);
