@@ -19,8 +19,7 @@ class ExpenseForm extends React.Component {
       createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
       calendarFocused: false,
       error: '',
-      accounts: props.accounts,
-      expenseTypes: [{text: 'Расход', value: -1},{text: 'Доход', value: 1}]
+      accounts: props.accounts
     };
   }
   onExpenseTypeChange = (e) => {
@@ -93,7 +92,7 @@ class ExpenseForm extends React.Component {
           className="text-input"
           value={this.state.expenseType}
           onChange={this.onExpenseTypeChange}
-        > {this.state.expenseTypes.map((expenseType, ikey) => 
+        > {this.props.expenseTypes.map((expenseType, ikey) => 
           <option 
             value={expenseType.value}
             key={ikey}
@@ -173,7 +172,8 @@ const mapStateToProps = (state) => {
       }),
       categories: state.categories.sort((a, b) => {
         return (b.name < a.name) ? 1 : -1;
-      })
+      }),
+      expenseTypes: state.filters.expenseTypes
   };
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
-import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate, setAccountFilter, setCategoriesFilter } from '../actions/filters';
+import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate, setAccountFilter, setCategoriesFilter, setTypesFilter } from '../actions/filters';
 import 'react-dates/initialize';
 import MultiSelect from "react-multi-select-component";
 
@@ -40,6 +40,10 @@ export class ExpenseListFilters extends React.Component {
     let selectedCategories = Array.from(e);
     this.props.setCategoriesFilter(selectedCategories);
   }
+  onFiltersChange = (e) => {
+    let selectedFilters = Array.from(e);
+    this.props.setTypesFilter(selectedFilters);
+  }
   render() {
     // if (this.props.filters.updateAccounts) {
     //   this.props.setAccountFilter(this.state.accounts);
@@ -48,6 +52,18 @@ export class ExpenseListFilters extends React.Component {
       <div className="content-container">
         <div className="input-group-wide">
           <div className="input-group__item">
+            <MultiSelect
+                options={this.props.filters.expenseTypes.map((type) => ({'label': type.text, 'value': type.value}))}
+                value={this.props.filters.types}
+                onChange={this.onFiltersChange}
+                hasSelectAll={false}
+                disableSearch={true}
+                overrideStrings={{"selectSomeItems": "Фильтр по типу транзакции...",
+                "allItemsAreSelected": "Расходы и доходы",
+                "search": "Поиск"}}
+              />
+            </div>
+            <div className="input-group__item">
             <MultiSelect
               options={this.state.accounts.sort((a, b) => {
                 return (b.label < a.label) ? 1 : -1;
@@ -62,6 +78,7 @@ export class ExpenseListFilters extends React.Component {
             />
           </div>
           <div className="input-group__item">
+            
             <MultiSelect
               options={this.props.categories.sort((a, b) => {
                 return (b.label < a.label) ? 1 : -1;
@@ -130,6 +147,7 @@ const mapDispatchToProps = (dispatch) => ({
   setEndDate: (endDate) => dispatch(setEndDate(endDate)),
   setAccountFilter: (accounts) => dispatch(setAccountFilter(accounts)),
   setCategoriesFilter: (categories) => dispatch(setCategoriesFilter(categories)),
+  setTypesFilter: (types) => dispatch(setTypesFilter(types))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseListFilters);

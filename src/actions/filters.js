@@ -34,3 +34,9 @@ export const setCategoriesFilter = (categories = []) => ({
   categories
 });
 
+export const setTypesFilter = (types = []) => ({
+  type: 'SET_TYPES_FILTER',
+  types
+});
+
+

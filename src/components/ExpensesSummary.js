@@ -8,10 +8,10 @@ import numeral from 'numeral';
 const ExpensesSummary = ({ expensesCount, expensesTotal }) => {
     const formattedExpensesTotal = numeral(expensesTotal / 100).format('$0,0.00'); 
     return (
-        <div className="page-header">
+        <div className="page-footer">
             <div className="content-container">
-                {expensesCount ? <h1 className="page-header__title">Всего расходов: <span>{expensesCount}</span>, на сумму: <span>{formattedExpensesTotal}</span></h1> : ''}
-                <div className="page-header__actions">
+                {/* {expensesCount ? <h1 className="page-footer__title">Всего расходов: <span>{expensesCount}</span>, на сумму: <span>{formattedExpensesTotal}</span></h1> : ''} */}
+                <div className="page-footer__actions">
                     <Link className="button" to="/create">Добавить расходы</Link>
                 </div>
             </div>
