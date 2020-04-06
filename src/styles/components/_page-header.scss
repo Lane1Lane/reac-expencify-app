@@ -1,17 +1,17 @@
-.page-footer {
+.page-header {
     background: $off-white;
     margin-top: $xs-size;
     padding: 0;
-    position: sticky;
-    bottom: 0
+    // position: sticky;
+    // bottom: 0
 }
 
 
-// .page-fotter__actions {
-    // margin-top: $m-size;
-// }
+.page-header__actions {
+    margin-top: $m-size;
+}
 
-.page-footer__title {
+.page-header__title {
     font-weight: 300;
     margin: 0;
     span {

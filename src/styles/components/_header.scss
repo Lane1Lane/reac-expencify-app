@@ -1,14 +1,12 @@
 .header {
-    background: $silver;
+    background: $off-white;
     position: sticky;
     top: 0;
     z-index: 1;
-    // position: relative;
 }
 
 .header__content {
     align-items: center;
-
     display: flex;
     justify-content: space-between;
     padding: 0;
@@ -21,4 +19,26 @@
         margin: 0;
     }
     font-size: $font-size-extrasmall;
+}
+
+.main-header {
+    background: $off-white;
+}
+
+.main-header__content {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.main-Header_Button {
+    background: $silver;
+    text-decoration: none;
+    width: 100%;
+    border: 1px solid darken($silver, 7%);
+    color: $dark-blue;
+    display: flex;
+    justify-content: space-around;
+    padding: $xs-size;
 }

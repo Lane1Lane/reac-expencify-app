@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
+import { setTypesFilter } from '../actions/filters';
 
-const Header = ({ startLogout }) => (
+const Header = ({ startLogout, setTypesFilter }) => (
   <header className="header">
   <div className="content-container">
     <div className="header__content">
@@ -13,13 +14,27 @@ const Header = ({ startLogout }) => (
       <button className="button button--link button--out" onClick={startLogout}>Выйти</button>
     </div>
   </div>
+  <div className="main-header">
+      <div className="content-container">
+          <div className="main-header__content">
+              <Link className="main-Header_Button" to="/dashboard"
+                  onClick={() => {setTypesFilter([{label: 'Расход', value: -1}])}}
+              >РАСХОДЫ</Link>
+              <Link className="main-Header_Button" to="/dashboard"
+                  onClick={() => {setTypesFilter([{label: 'Доход', value: 1}])}}
+              >ДОХОДЫ</Link>
+              <Link className="main-Header_Button" to="/accounts">СЧЕТА</Link>
+          </div>
+      </div>
+  </div>
   </header>
 );
 
     // <NavLink to="/create" activeClassName="is-active">Create Expense</NavLink>
 
 const mapDispatchToProps = (dispatch) => ({
-  startLogout: () => dispatch(startLogout())
+  startLogout: () => dispatch(startLogout()),
+  setTypesFilter: (type) => dispatch(setTypesFilter(type))
 });
 
 export default connect(undefined, mapDispatchToProps)(Header);
