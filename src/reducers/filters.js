@@ -10,7 +10,7 @@ const filterReducerDefaultState = {
     accounts: [],
     updateAccounts: true,
     categories: [],
-    types: [],
+    types: [{text: 'Расход', value: -1}],
     expenseTypes: [{text: 'Расход', value: -1},{text: 'Доход', value: 1}]
   };
   
