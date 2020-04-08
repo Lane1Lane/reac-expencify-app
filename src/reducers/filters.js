@@ -10,8 +10,9 @@ const filterReducerDefaultState = {
     accounts: [],
     updateAccounts: true,
     categories: [],
-    types: [{text: 'Расход', value: -1}],
-    expenseTypes: [{text: 'Расход', value: -1},{text: 'Доход', value: 1}]
+    types: [{label: 'Расход', value: -1}],
+    expenseTypes: [{text: 'Расход', value: -1},{text: 'Доход', value: 1}],
+    showFilters: false
   };
   
   export default (state = filterReducerDefaultState, action) => {
@@ -51,6 +52,11 @@ switch (action.type) {
     return {
         ...state,
         types: action.types
+    }
+    case 'SET_SHOW_FILTERS':
+    return {
+        ...state,
+        showFilters: !state.showFilters
     }
     default:
     return state;

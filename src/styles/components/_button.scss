@@ -1,7 +1,7 @@
 .button {
     background:$blue;
     color: white;
-    display: inline-block;
+    // display: inline-block;
     padding: $s-size;
     border: none;
     font-weight: 300;
@@ -21,4 +21,9 @@
 .button--out {
     color: $dark-blue;
     font-weight: 500;
+}
+
+.button--footer {
+    display: inline-flex;
+    padding: 0;
 }

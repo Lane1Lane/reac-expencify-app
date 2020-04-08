@@ -2,4 +2,16 @@
     margin: 0 auto;
     padding: 0;
     max-width: 80rem;
+    background-color: white;
+}
+
+.content-container--filters {
+    position: sticky;
+    top: 82px;
+    z-index: 1;
+}
+
+.container-flex {
+    display: flex;
+    justify-content: space-between;
 }

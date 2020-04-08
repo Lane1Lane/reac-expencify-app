@@ -1,0 +1,22 @@
+.page-footer {
+    background: $off-white;
+    margin-top: $xs-size;
+    padding: 0;
+    position: sticky;
+    bottom: 0
+}
+
+
+.page-footer__actions {
+    // margin-top: $m-size;
+    display: flex;
+    // box-sizing: content-box;
+}
+
+.page-footer__title {
+    font-weight: 300;
+    margin: 0;
+    span {
+        font-weight: 700;
+    }
+}

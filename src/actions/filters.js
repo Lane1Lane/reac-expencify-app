@@ -39,4 +39,8 @@ export const setTypesFilter = (types = []) => ({
   types
 });
 
+export const setShowFilters = (showFilters) => ({
+  type: 'SET_SHOW_FILTERS',
+  showFilters
+});
 
