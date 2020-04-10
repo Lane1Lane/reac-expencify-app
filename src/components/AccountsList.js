@@ -17,7 +17,6 @@ const AccountsList = (props) => (
                 )
             }
         </div>
-        {console.log(props.accounts)}
     </div>
 );
 

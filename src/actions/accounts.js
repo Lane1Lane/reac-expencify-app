@@ -42,3 +42,20 @@ export const startSetAccounts = () => {
     });
   };
 };
+
+export const editAccount = (id, updates) => ({
+  type: 'EDIT_ACCOUNT',
+  id,
+  updates
+});
+
+export const startEditAccount = (id, updates) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    database.ref(`users/${uid}/accounts/${id}`).update({
+      ...updates
+    }).then(() => {
+      dispatch(editAccount(id, updates));
+    });
+  };
+};
