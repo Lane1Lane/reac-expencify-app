@@ -16,7 +16,31 @@
     width:  35rem;
 }
 
+.box-layout__box-buttons{
+    display: flex;
+    padding: $xs-size 0 $xs-size 0;
+    justify-content: space-between;
+}
+
 .box-layout__title {
     margin: 0 0 $m-size 0;
     line-height: 1;
+}
+
+.box-layout__pass {
+    display: flex;
+    padding: $xs-size $m-size $xs-size $m-size;
+    margin: auto;
+}
+
+.hidden {
+    display: none;
+}
+
+.box-layout__error {
+    color: red;
+}
+
+.reset-password {
+    cursor: pointer;
 }
