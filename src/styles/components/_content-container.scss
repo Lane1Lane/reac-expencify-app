@@ -7,8 +7,9 @@
 
 .content-container--filters {
     position: sticky;
-    top: 82px;
+    top: 39px;
     z-index: 1;
+    border: 1px solid darken($off-white, 7%);
 }
 
 .container-flex {

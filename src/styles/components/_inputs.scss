@@ -1,10 +1,14 @@
 .text-input {
     width: 100%;
     border: 1px solid #cacccd;
-    height: 48px;
+    height: 40px;
     font-size: $font-size-large;
     font-weight: 300;
-    padding: $s-size;
+    padding: $xs-size;
+}
+
+.search {
+    margin-bottom: $xs-size;
 }
 
 .select {

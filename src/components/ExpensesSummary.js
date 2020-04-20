@@ -11,8 +11,10 @@ const ExpensesSummary = ({ expensesCount, expensesTotal, setShowFilters }) => {
     const formattedExpensesTotal = numeral(expensesTotal / 100).format('$0,0.00'); 
     return (
         <div className="page-footer">
+            <div className="content-container">
+                {expensesCount ? <h1 className="page-footer__total">Всего операций: <span>{expensesCount}</span>, на сумму: <span>{formattedExpensesTotal}</span></h1> : ''}
+            </div>
             <div className="content-container container-flex">
-                {/* {expensesCount ? <h1 className="page-footer__title">Всего расходов: <span>{expensesCount}</span>, на сумму: <span>{formattedExpensesTotal}</span></h1> : ''} */}
                 <div className="page-footer__actions">
                     <Link className="button" to="/create">Добавить</Link>
                 </div>

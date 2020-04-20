@@ -55,7 +55,7 @@ export class ExpenseListFilters extends React.Component {
         <div className="input-group-wide">
           <div className="input-group__item">
             <input
-            className="text-input"
+            className="text-input search"
             placeholder="Поиск..."
             type="text"
             value={this.props.filters.text}

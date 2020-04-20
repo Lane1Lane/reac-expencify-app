@@ -73,14 +73,25 @@
     color: white;
     padding-left: $m-size;
     font-weight: 500;
+    font-size: $font-size-small;
+    line-height: 1.2;
+    @media (min-width: $desktop-breakpoint) {
+        line-height: 1.6;
+        font-weight: bold;
+    }
 }
 
 .list-item__total {
     background: $off-white;
     border: 1px solid darken($off-white, 7%);
     text-align: right;
-    padding-right: $m-size;
     font-weight: bold;
     color: $dark-blue;
     font-size: $font-size-small;
+    line-height: 1;
+    padding-right: $xs-size;
+    @media (min-width: $desktop-breakpoint) {
+        line-height: 1.6;
+        padding-right: $m-size;
+    }
 }

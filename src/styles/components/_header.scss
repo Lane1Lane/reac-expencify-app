@@ -1,8 +1,5 @@
 .header {
     background: $off-white;
-    position: sticky;
-    top: 0;
-    z-index: 1;
 }
 
 .header__content {
@@ -24,6 +21,9 @@
 
 .main-header {
     background: $off-white;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .main-header__content {

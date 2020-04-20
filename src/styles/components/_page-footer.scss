@@ -20,3 +20,10 @@
         font-weight: 700;
     }
 }
+
+.page-footer__total {
+    @extend .list-item__total;
+    margin: 0;
+    padding-top: $xss-size;
+    padding-bottom: $xss-size;
+}
