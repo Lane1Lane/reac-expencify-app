@@ -66,3 +66,21 @@
         padding-left: $s-size;
     }
 }
+
+.list-item__day {
+    display: flex;
+    background:$blue;
+    color: white;
+    padding-left: $m-size;
+    font-weight: 500;
+}
+
+.list-item__total {
+    background: $off-white;
+    border: 1px solid darken($off-white, 7%);
+    text-align: right;
+    padding-right: $m-size;
+    font-weight: bold;
+    color: $dark-blue;
+    font-size: $font-size-small;
+}

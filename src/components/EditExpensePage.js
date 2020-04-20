@@ -7,8 +7,13 @@ import { startEditAccount } from '../actions/accounts';
 export class EditExpensePage extends React.Component {
   onSubmit = (expense) => {
     this.props.editExpense(this.props.expense.id, expense);
-    this.props.startEditAccount(this.props.expense.account, {'amount': this.props.accounts.find((account) => account.id === this.props.expense.account).amount - this.props.expense.amount});
-    this.props.startEditAccount(expense.account, {'amount': this.props.accounts.find((account) => account.id === expense.account).amount + expense.amount});
+    const amountBefore = this.props.accounts.find((account) => account.id === this.props.expense.account).amount;
+    if (this.props.expense.account !== expense.account) {
+      this.props.startEditAccount(this.props.expense.account, {amount: (amountBefore - this.props.expense.amount)});
+      this.props.startEditAccount(expense.account, {amount: this.props.accounts.find((account) => account.id === expense.account).amount + expense.amount});
+    } else {
+      this.props.startEditAccount(this.props.expense.account, {'amount': amountBefore - this.props.expense.amount + expense.amount});
+    }
     this.props.history.push('/');
   };
   onRemove = () => {

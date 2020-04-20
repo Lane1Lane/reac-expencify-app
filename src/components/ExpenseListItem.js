@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-moment.locale('uk');
+moment.locale('ru');
 import numeral from 'numeral';
 
 numeral.register('locale', 'ukr', {
