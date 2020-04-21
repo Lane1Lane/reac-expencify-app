@@ -44,3 +44,9 @@ export const setShowFilters = (showFilters) => ({
   showFilters
 });
 
+export const setLastExpense = (account, createdAt) => ({
+  type: 'SET_LAST_EXPENSE',
+  lastExpense: { account, createdAt }
+});
+
+

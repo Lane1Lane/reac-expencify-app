@@ -12,7 +12,8 @@ const filterReducerDefaultState = {
     categories: [],
     types: [{label: 'Расход', value: -1}],
     expenseTypes: [{text: 'Расход', value: -1},{text: 'Доход', value: 1}],
-    showFilters: false
+    showFilters: false,
+    lastExpense: {account: '', date: ''}
   };
   
   export default (state = filterReducerDefaultState, action) => {
@@ -57,6 +58,11 @@ switch (action.type) {
     return {
         ...state,
         showFilters: !state.showFilters
+    }
+    case 'SET_LAST_EXPENSE':
+    return {
+        ...state,
+        lastExpense: action.lastExpense
     }
     default:
     return state;

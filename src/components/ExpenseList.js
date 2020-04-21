@@ -10,11 +10,6 @@ moment.locale('ru');
 
 export const ExpenseList = (props) => {
   return <div className="content-container">
-    {/* <div className="list-header">
-      <div className="show-for-mobile">Расходы</div>
-      <div className="show-for-desktop">Расход</div>
-      <div className="show-for-desktop">Сумма</div>
-    </div> */}
     <div className="list-body">
       {
         

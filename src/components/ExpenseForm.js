@@ -10,13 +10,13 @@ class ExpenseForm extends React.Component {
     super(props);
 
     this.state = {
-      expenseType: props.expense ? props.expense.expenseType : -1,
+      expenseType: props.expense ? props.expense.expenseType : props.filters.types[0].value,
       category: props.expense ? props.expense.category ? props.expense.category.split(',') : [] : [],
-      account: props.expense ? props.expense.account : props.accounts[0].id,
+      account: props.expense ? props.expense.account : (props.filters.lastExpense.account || (props.filters.accounts.length ? props.filters.accounts[0].value : props.accounts[0].id)),
       description: props.expense ? props.expense.description : '',
       note: props.expense ? props.expense.note : '',
       amount: props.expense ? (props.expense.expenseType * props.expense.amount / 100).toString() : '',
-      createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+      createdAt: props.expense ? moment(props.expense.createdAt) : (moment(props.filters.lastExpense.createdAt) || moment()),
       calendarFocused: false,
       error: '',
       accounts: props.accounts
@@ -85,7 +85,6 @@ class ExpenseForm extends React.Component {
     }
   };
   render() {
-    console.log(this.state.createdAt);
     return (
       <form className="form" onSubmit={this.onSubmit}>
         {this.state.error && <p className="form__error">{this.state.error}</p>}
@@ -126,18 +125,18 @@ class ExpenseForm extends React.Component {
         />
         <input
           type="text"
-          placeholder="Описание"
-          autoFocus
-          className="text-input"
-          value={this.state.description}
-          onChange={this.onDescriptionChange}
-        />
-        <input
-          type="text"
           placeholder="Сумма"
           className="text-input"
           value={this.state.amount}
           onChange={this.onAmountChange}
+          autoFocus
+        />
+        <input
+          type="text"
+          placeholder="Описание"
+          className="text-input"
+          value={this.state.description}
+          onChange={this.onDescriptionChange}
         />
         <SingleDatePicker
           date={this.state.createdAt}
@@ -174,7 +173,8 @@ const mapStateToProps = (state) => {
       categories: state.categories.sort((a, b) => {
         return (b.name < a.name) ? 1 : -1;
       }),
-      expenseTypes: state.filters.expenseTypes
+      expenseTypes: state.filters.expenseTypes,
+      filters: state.filters
   };
 };
 

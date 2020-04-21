@@ -144,7 +144,6 @@ const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
 store.subscribe(() => {
   const state = store.getState();
   const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-  console.log(visibleExpenses);
 });
 
 const expenseOne = store.dispatch(addExpense({ description : 'Rent', amount : 200, createdAt: 500 }));

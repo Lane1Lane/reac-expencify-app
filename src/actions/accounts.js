@@ -51,7 +51,6 @@ export const editAccount = (id, updates) => ({
 
 export const startEditAccount = (id, updates) => {
   return (dispatch, getState) => {
-    console.log('fromAction',id, updates);
     const uid = getState().auth.uid;
     database.ref(`users/${uid}/accounts/${id}`).update({
       ...updates

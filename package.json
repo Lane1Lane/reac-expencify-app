@@ -32,6 +32,7 @@
     "node-sass": "^4.13.0",
     "normalize.css": "^8.0.1",
     "numeral": "^2.0.6",
+    "primereact": "^4.2.0",
     "react": "^16.9.0",
     "react-addons-shallow-compare": "^15.6.2",
     "react-dates": "^21.3.2",

@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 import { startAddExpense } from '../actions/expenses';
 import { startEditAccount } from '../actions/accounts';
+import { setLastExpense } from '../actions/filters';
 
 export class AddExpensePage extends React.Component {
   onSubmit = (expense) => {
     this.props.startAddExpense(expense);
     this.props.startEditAccount(expense.account, {'amount': this.props.accounts.find((account) => account.id === expense.account).amount + expense.amount});
+    this.props.setLastExpense(expense.account, expense.createdAt);
     this.props.history.push('/');
   };
   render() {
@@ -30,7 +32,8 @@ export class AddExpensePage extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   startAddExpense: (expense) => dispatch(startAddExpense(expense)),
-  startEditAccount: (id, account) => dispatch(startEditAccount(id, account))
+  startEditAccount: (id, account) => dispatch(startEditAccount(id, account)),
+  setLastExpense: (account, createdAt) => dispatch(setLastExpense(account, createdAt))
 });
 
 const mapStateToProps = (state) => ({

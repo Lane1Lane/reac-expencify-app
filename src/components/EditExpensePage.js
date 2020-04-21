@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
 import { startEditExpense, startRemoveExpense } from '../actions/expenses';
 import { startEditAccount } from '../actions/accounts';
+import { setLastExpense } from '../actions/filters';
 
 export class EditExpensePage extends React.Component {
   onSubmit = (expense) => {
     this.props.editExpense(this.props.expense.id, expense);
     const amountBefore = this.props.accounts.find((account) => account.id === this.props.expense.account).amount;
+    this.props.setLastExpense(expense.account, expense.createdAt);
     if (this.props.expense.account !== expense.account) {
       this.props.startEditAccount(this.props.expense.account, {amount: (amountBefore - this.props.expense.amount)});
       this.props.startEditAccount(expense.account, {amount: this.props.accounts.find((account) => account.id === expense.account).amount + expense.amount});
@@ -49,7 +51,8 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch, props) => ({
   editExpense: (id, expense) => dispatch(startEditExpense(id, expense)),
   removeExpense: (data) => dispatch(startRemoveExpense(data)),
-  startEditAccount: (id, account) => dispatch(startEditAccount(id, account))
+  startEditAccount: (id, account) => dispatch(startEditAccount(id, account)),
+  setLastExpense: (account, createdAt) => dispatch(setLastExpense(account, createdAt))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditExpensePage);
