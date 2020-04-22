@@ -59,6 +59,11 @@ switch (action.type) {
         ...state,
         showFilters: !state.showFilters
     }
+    case 'SET_HIDE_FILTERS':
+    return {
+        ...state,
+        showFilters: false
+    }
     case 'SET_LAST_EXPENSE':
     return {
         ...state,

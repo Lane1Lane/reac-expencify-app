@@ -5,6 +5,28 @@ import { connect } from 'react-redux';
 import CreatableSelect from 'react-select/creatable';
 import { startAddCategory } from '../actions/categories';
 
+const defaultProps = {
+  
+  defaultValue: '',
+  disabled: false,
+  maxOptions: 6,
+  onBlur: () => { },
+  onChange: () => { },
+  onKeyDown: () => { },
+  onRequestOptions: () => { },
+  options: [],
+  regex: '^[A-Za-z0-9\\-_]+$',
+  matchAny: false,
+  minChars: 0,
+  requestOnlyIfNoOptions: true,
+  spaceRemovers: [',', '.', '!', '?'],
+  spacer: ' ',
+  trigger: '@',
+  offsetX: 0,
+  offsetY: 0,
+  value: null,
+};
+
 class ExpenseForm extends React.Component {
   constructor(props) {
     super(props);
@@ -21,6 +43,7 @@ class ExpenseForm extends React.Component {
       error: '',
       accounts: props.accounts
     };
+    // this.descriptions = this.props.descriptions
   }
   onExpenseTypeChange = (e) => {
     const expenseType = +e.target.value;
@@ -67,6 +90,7 @@ class ExpenseForm extends React.Component {
   onFocusChange = ({ focused }) => {
     this.setState(() => ({ calendarFocused: focused }));
   };
+
   onSubmit = (e) => {
     e.preventDefault();
     if (!this.state.description || !this.state.amount || !this.state.account) {
@@ -174,7 +198,8 @@ const mapStateToProps = (state) => {
         return (b.name < a.name) ? 1 : -1;
       }),
       expenseTypes: state.filters.expenseTypes,
-      filters: state.filters
+      filters: state.filters,
+      descriptions: state.expenses.map((expense) => expense.description)
   };
 };
 

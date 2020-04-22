@@ -39,9 +39,12 @@ export const setTypesFilter = (types = []) => ({
   types
 });
 
-export const setShowFilters = (showFilters) => ({
-  type: 'SET_SHOW_FILTERS',
-  showFilters
+export const setShowFilters = () => ({
+  type: 'SET_SHOW_FILTERS'
+});
+
+export const hideFilters = () => ({
+  type: 'SET_HIDE_FILTERS'
 });
 
 export const setLastExpense = (account, createdAt) => ({
