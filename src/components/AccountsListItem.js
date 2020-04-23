@@ -30,7 +30,7 @@ const AccountsListItem = ({ id, name, amount, ...props }) => (
         <div>
             <h3 className="list-item__title">{name}</h3>
         </div>
-        <h3 className="list-item__data">{numeral(amount/100).format('0,0.00 $')}</h3>     
+        <h3 className={"list-item__data" + ((amount < 0) ? ' list-item__red-data' : '')}>{numeral(amount/100).format('0,0.00 $')}</h3>     
     </Link>
 );
 

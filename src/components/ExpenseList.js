@@ -22,7 +22,11 @@ export const ExpenseList = (props) => {
                 return <div key={oneDay}>
                   <div className="list-item__day">{moment(oneDay).lang("ru").format('LL')}</div>
                   {props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay).map((expense) => {
-                    return <ExpenseListItem key={expense.id} accountNamed={props.accounts.find((account) => account.id === expense.account).name} {...expense}/>;
+                    let namedCategory = []
+                    if (expense.category.length) {expense.category.split(',').forEach((category)=>{
+                      namedCategory.push(props.categories.find((cat) => cat.value === category).label)
+                    })} else {namedCategory.push('...')};
+                    return <ExpenseListItem key={expense.id} accountNamed={props.accounts.find((account) => account.id === expense.account).name} namedCategory = {namedCategory.join(', ')} {...expense}/>;
                   })}
                   <div className="list-item__total">
                     {numeral(selectExpensesTotal(props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay)) / 100).format('$0,0.00')}
@@ -40,7 +44,8 @@ const mapStateToProps = (state) => {
   return {
     expenses: selectExpenses(state.expenses, state.filters),
     accounts: state.accounts,
-    filters: state.filters
+    filters: state.filters,
+    categories: state.categories
   };
 };
 
