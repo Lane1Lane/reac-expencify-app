@@ -8,7 +8,7 @@ import { setShowFilters } from '../actions/filters';
 
 
 const ExpensesSummary = ({ expensesCount, expensesTotal, setShowFilters }) => {
-    const formattedExpensesTotal = numeral(expensesTotal / 100).format('$0,0.00'); 
+    const formattedExpensesTotal = numeral(expensesTotal / 100).format('0,0.00 $'); 
     return (
         <div className="page-footer">
             <div className="content-container">

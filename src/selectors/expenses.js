@@ -32,5 +32,7 @@ export default (expenses, { accounts, categories, text, sortBy = 'date', startDa
       } else if (sortBy === 'amount') {
         return b.amount - a.amount;
       }
+    }).sort((a, b) => {
+        return b.realCreatedAt - a.realCreatedAt;
     });
   };

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import CreatableSelect from 'react-select/creatable';
 import { startAddCategory } from '../actions/categories';
 
+
 const defaultProps = {
   
   defaultValue: '',
@@ -39,6 +40,7 @@ class ExpenseForm extends React.Component {
       note: props.expense ? props.expense.note : '',
       amount: props.expense ? (props.expense.expenseType * props.expense.amount / 100).toString() : '',
       createdAt: props.expense ? moment(props.expense.createdAt) : (moment(props.filters.lastExpense.createdAt) || moment()),
+      realCreatedAt: moment(),
       calendarFocused: false,
       error: '',
       accounts: props.accounts
@@ -104,6 +106,7 @@ class ExpenseForm extends React.Component {
         description: this.state.description,
         amount: parseFloat(this.state.amount, 10) * 100 * this.state.expenseType,
         createdAt: this.state.createdAt.valueOf(),
+        realCreatedAt: this.state.realCreatedAt.valueOf(),
         note: this.state.note
       });
     }

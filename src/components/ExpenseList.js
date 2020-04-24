@@ -28,9 +28,12 @@ export const ExpenseList = (props) => {
                     })} else {namedCategory.push('...')};
                     return <ExpenseListItem key={expense.id} accountNamed={props.accounts.find((account) => account.id === expense.account).name} namedCategory = {namedCategory.join(', ')} {...expense}/>;
                   })}
-                  <div className="list-item__total">
-                    {numeral(selectExpensesTotal(props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay)) / 100).format('$0,0.00')}
-                  </div>
+                  {(props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay).length > 1) ?
+                    (<div className="list-item__total">
+                      {numeral(selectExpensesTotal(props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay)) / 100).format('0,0.00 $')}
+                    </div>) : ''
+                  }
+                  
                 </div>
               })
             
