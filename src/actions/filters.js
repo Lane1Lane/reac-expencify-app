@@ -52,4 +52,9 @@ export const setLastExpense = (account, createdAt) => ({
   lastExpense: { account, createdAt }
 });
 
+// export const setLastExpenseId = (id) => ({
+//   type: 'SET_LAST_EXPENSE_ID',
+//   lastExpenseId: id
+// });
+
 

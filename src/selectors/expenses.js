@@ -28,11 +28,9 @@ export default (expenses, { accounts, categories, text, sortBy = 'date', startDa
       return startDateMatch && endDateMatch && textMatch && accountMatch && categoriesMatch && typesMatch;
     }).sort((a, b) => {
       if (sortBy === 'date') {
-        return b.createdAt - a.createdAt;
+        return b.createdAt - a.createdAt || b.realCreatedAt - a.realCreatedAt;
       } else if (sortBy === 'amount') {
         return b.amount - a.amount;
       }
-    }).sort((a, b) => {
-        return b.realCreatedAt - a.realCreatedAt;
     });
   };

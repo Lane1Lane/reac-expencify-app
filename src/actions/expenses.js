@@ -6,6 +6,11 @@ export const addExpense = (expense) => ({
     expense
   });
 
+export const setLastExpenseId = (lastExpenseId) => ({
+  type: 'SET_LAST_EXPENSE_ID',
+  lastExpenseId: lastExpenseId
+});
+
 export const startAddExpense = (expenseData = {}) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
@@ -25,6 +30,7 @@ export const startAddExpense = (expenseData = {}) => {
         id: ref.key,
         ...expense
       }));
+      dispatch(setLastExpenseId(ref.key));
     })
   } 
 }
@@ -56,6 +62,7 @@ export const startEditExpense = (id, updates) => {
       ...updates
     }).then(() => {
       dispatch(editExpense(id, updates));
+      dispatch(setLastExpenseId(id));
     });
   };
 };

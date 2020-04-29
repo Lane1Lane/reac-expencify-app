@@ -3,34 +3,54 @@ import { connect } from 'react-redux';
 import ExpenseListItem from './ExpenseListItem';
 import selectExpenses from '../selectors/expenses';
 import selectExpensesTotal from '../selectors/expenses-total';
+import { setLastExpenseId } from '../actions/expenses';
 import numeral from 'numeral';
 import moment from 'moment';
 moment.locale('ru');
+import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 
-export const ExpenseList = (props) => {
-  return <div className="content-container">
+
+
+
+export class ExpenseList extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+  componentDidUpdate() {
+    if (this.props.filters.lastExpenseId) {
+      scroller.scrollTo(this.props.filters.lastExpenseId, {
+        duration: 1000,
+        delay: 100,
+        smooth: "easeInOutQuart",
+        offset: -90
+      });
+      this.props.setLastExpenseId('');
+    };
+  }
+  render() {
+    return <div className="content-container">
     <div className="list-body">
       {
         
-        props.expenses.length === 0 ? (
+        this.props.expenses.length === 0 ? (
           <div className="list-item list-item--mesaage">
             <span>Нет транзакций</span>
           </div>
         ) : (
-              Array.from(new Set(props.expenses.map((expense => moment(expense.createdAt).startOf('day').valueOf())))).map((oneDay, key) => {
+              Array.from(new Set(this.props.expenses.map((expense => moment(expense.createdAt).startOf('day').valueOf())))).map((oneDay, key) => {
                 return <div key={oneDay}>
                   <div className="list-item__day">{moment(oneDay).lang("ru").format('LL')}</div>
-                  {props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay).map((expense) => {
+                  {this.props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay).map((expense) => {
                     let namedCategory = []
                     if (expense.category.length) {expense.category.split(',').forEach((category)=>{
-                      namedCategory.push(props.categories.find((cat) => cat.value === category).label)
+                      namedCategory.push(this.props.categories.find((cat) => cat.value === category).label)
                     })} else {namedCategory.push('...')};
-                    return <ExpenseListItem key={expense.id} accountNamed={props.accounts.find((account) => account.id === expense.account).name} namedCategory = {namedCategory.join(', ')} {...expense}/>;
+                    return <ExpenseListItem key={expense.id} accountNamed={this.props.accounts.find((account) => account.id === expense.account).name} namedCategory = {namedCategory.join(', ')} {...expense}/>;
                   })}
-                  {(props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay).length > 1) ?
+                  {(this.props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay).length > 1) ?
                     (<div className="list-item__total">
-                      {numeral(selectExpensesTotal(props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay)) / 100).format('0,0.00 $')}
+                      {numeral(selectExpensesTotal(this.props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay)) / 100).format('0,0.00 $')}
                     </div>) : ''
                   }
                   
@@ -40,8 +60,12 @@ export const ExpenseList = (props) => {
           )
       }
     </div>
-  </div>
+  </div>}
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  setLastExpenseId: (lastExpenseId) => dispatch(setLastExpenseId(lastExpenseId))
+});
 
 const mapStateToProps = (state) => {
   return {
@@ -52,4 +76,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(ExpenseList);
+export default connect(mapStateToProps, mapDispatchToProps)(ExpenseList);

@@ -4,6 +4,7 @@ import moment from 'moment';
 moment.locale('ru');
 import numeral from 'numeral';
 
+
 numeral.register('locale', 'ukr', {
     delimiters: {
         thousands: ' ',
@@ -27,7 +28,7 @@ numeral.register('locale', 'ukr', {
 numeral.locale('ukr');
 
 const ExpenseListItem = ({ accountNamed, namedCategory, description, amount, createdAt, id }) => (
-    <Link className="list-item" to={`/edit/${id}`}>
+    <Link name={id} className="list-item" to={`/edit/${id}`}>
         <div>
             <p className="list-item__sub-title list-item__green-data">{accountNamed}</p>
             <h3 className="list-item__title">{description}</h3>
