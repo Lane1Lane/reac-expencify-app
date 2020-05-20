@@ -2,9 +2,10 @@
     display: flex;
     flex-direction: column;
     // margin-top: $m-size;
+    flex-direction: row;
 
     @media (min-width: $desktop-breakpoint) {
-        flex-direction: row;
+        // flex-direction: row;
         // margin-top: $l-size;
     }
 }
