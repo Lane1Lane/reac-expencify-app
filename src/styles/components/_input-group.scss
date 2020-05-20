@@ -34,3 +34,17 @@
         // margin: 0 0 0 $s-size;
     }
 }
+
+.input-group__last-item {
+    margin-bottom: $xs-size;
+}
+
+.input-group__clear {
+    height: 4rem;
+    width: 4rem;
+    background-color: white;
+    margin: $xs-size;
+    margin-left: auto;
+    border-radius: 5px;
+    cursor: pointer;
+}

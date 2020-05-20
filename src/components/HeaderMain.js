@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setTypesFilter } from '../actions/filters';
-import { hideFilters,  } from '../actions/filters';
+import { hideFilters } from '../actions/filters';
 
 const HeaderMain = ({ hideFilters, setTypesFilter, filters } ) => (
     <div className="main-header">

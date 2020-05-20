@@ -32,7 +32,7 @@ switch (action.type) {
     case 'SET_START_DATE':
     return {
         ...state,
-        startDate: action.startDate
+        startDate: action.startDate 
     }
     case 'SET_END_DATE':
     return {
@@ -53,7 +53,7 @@ switch (action.type) {
     case 'SET_TYPES_FILTER':
     return {
         ...state,
-        types: action.types
+        types: action.types 
     }
     case 'SET_SHOW_FILTERS':
     return {

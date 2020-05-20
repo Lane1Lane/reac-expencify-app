@@ -5,8 +5,8 @@ import { setTextFilter, sortByDate, sortByAmount, setStartDate, setEndDate, setA
 import 'react-dates/initialize';
 import MultiSelect from "react-multi-select-component";
 import Select from 'react-select';
-
-
+import moment from 'moment';
+import { hideFilters } from '../actions/filters';
 
 export class ExpenseListFilters extends React.Component {
   state = {
@@ -45,6 +45,14 @@ export class ExpenseListFilters extends React.Component {
   onFiltersChange = (e) => {
     let selectedFilters = Array.from(e);
     this.props.setTypesFilter(selectedFilters);
+  }
+  onClearFilters = () => {
+    this.props.setAccountFilter();
+    this.props.setCategoriesFilter();
+    this.props.setTypesFilter(this.props.filters.expenseTypes.map((type) => ({'label': type.text, 'value': type.value})));
+    this.props.setStartDate(moment().startOf('month'));
+    this.props.setEndDate(moment().endOf('month'));
+    this.props.hideFilters();
   }
   render() {
     // if (this.props.filters.updateAccounts) {
@@ -136,7 +144,7 @@ export class ExpenseListFilters extends React.Component {
                 <option value="amount">Amount</option>
               </select>
             </div> */}
-            <div className="input-group__item">
+            <div className="input-group__item input-group__last-item ">
               <DateRangePicker
                 startDateId=''
                 endDateId=''
@@ -148,8 +156,11 @@ export class ExpenseListFilters extends React.Component {
                 showClearDates={true}
                 numberOfMonths={1}
                 isOutsideRange={() => false}
-                selectionType="range"
+                
               />
+            </div>
+            <div className="input-group__clear" onClick={this.onClearFilters}>
+                  <img src="/images/clear.svg" alt="clear-filters"/>
             </div>
           </div>
         </div>
@@ -173,7 +184,8 @@ const mapDispatchToProps = (dispatch) => ({
   setEndDate: (endDate) => dispatch(setEndDate(endDate)),
   setAccountFilter: (accounts) => dispatch(setAccountFilter(accounts)),
   setCategoriesFilter: (categories) => dispatch(setCategoriesFilter(categories)),
-  setTypesFilter: (types) => dispatch(setTypesFilter(types))
+  setTypesFilter: (types) => dispatch(setTypesFilter(types)),
+  hideFilters: () => dispatch(hideFilters())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseListFilters);
