@@ -104,3 +104,14 @@
 .list-item__green-data {
     color: green;
 }
+
+.list-item__amount {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-item__copy-image {
+    height: 4rem;
+    width: 4rem;
+    margin-left: auto;
+}

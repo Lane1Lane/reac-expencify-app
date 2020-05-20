@@ -22,6 +22,7 @@ export class AddExpensePage extends React.Component {
         </div>
         <div className="content-container">
           <ExpenseForm
+            expense={this.props.expense}
             onSubmit={this.onSubmit}
           />
         </div> 
@@ -30,16 +31,16 @@ export class AddExpensePage extends React.Component {
   }
 }
 
+const mapStateToProps = (state,props) => ({
+  expense: state.expenses.find((expense) => expense.id === props.match.params.id),
+  accounts: state.accounts
+});
+
 const mapDispatchToProps = (dispatch) => ({
   startAddExpense: (expense) => dispatch(startAddExpense(expense)),
   startEditAccount: (id, account) => dispatch(startEditAccount(id, account)),
   setLastExpense: (account, createdAt) => dispatch(setLastExpense(account, createdAt))
   // setLastExpenseId: (lastExpenseId) => dispatch(setLastExpenseId(lastExpenseId))
 });
-
-const mapStateToProps = (state) => ({
-  accounts: state.accounts
-});
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpensePage);

@@ -91,6 +91,7 @@ class ExpenseForm extends React.Component {
     }
   };
   render() {
+    console.log(this.props.expense);
     return (
       <form className="form" onSubmit={this.onSubmit}>
         {this.state.error && <p className="form__error">{this.state.error}</p>}

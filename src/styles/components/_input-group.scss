@@ -21,8 +21,14 @@
     }
 }
 
+.input-group-filters {
+    background-color: lightseagreen;
+    border-radius: 2px;
+    margin-bottom: $xs-size;
+}
+
 .input-group__item {
-    margin-top: $xs-size;
+    margin: $xs-size $xs-size 0 $xs-size;
 
     @media (min-width: $desktop-breakpoint) {
         // margin: 0 0 0 $s-size;

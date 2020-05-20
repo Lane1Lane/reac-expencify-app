@@ -65,7 +65,7 @@ export class ExpenseListFilters extends React.Component {
         </div>
         {(this.props.filters.showFilters) ? 
         (
-        <div>
+        <div className="input-group-filters">
           <div className="input-group-wide">
             <div className="input-group__item">
               {/* <MultiSelect
@@ -113,19 +113,6 @@ export class ExpenseListFilters extends React.Component {
               />
             </div>
             <div className="input-group__item">
-              
-              {/* <MultiSelect
-                options={this.props.categories.sort((a, b) => {
-                  return (b.label < a.label) ? 1 : -1;
-                })}
-                value={this.props.filters.categories}
-                onChange={this.onCategoriesChange}
-                // labelledBy={"Счёт"}
-                overrideStrings={{"selectSomeItems": "Фильтр по категориям...",
-                "allItemsAreSelected": "Выбраны все категории",
-                "selectAll": "Выбрать/отменить все категории",
-                "search": "Поиск"}}
-              /> */}
               <Select
                 classNamePrefix="text-input"
                 options={this.props.categories.sort((a, b) => {
@@ -139,7 +126,7 @@ export class ExpenseListFilters extends React.Component {
             </div>
           </div>
           <div className="input-group">
-            <div className="input-group__item">
+            {/* <div className="input-group__item">
               <select
                 className="select"
                 value={this.props.filters.sortBy}
@@ -148,7 +135,7 @@ export class ExpenseListFilters extends React.Component {
                 <option value="date">Date</option>
                 <option value="amount">Amount</option>
               </select>
-            </div>
+            </div> */}
             <div className="input-group__item">
               <DateRangePicker
                 startDateId=''
@@ -161,6 +148,7 @@ export class ExpenseListFilters extends React.Component {
                 showClearDates={true}
                 numberOfMonths={1}
                 isOutsideRange={() => false}
+                selectionType="range"
               />
             </div>
           </div>

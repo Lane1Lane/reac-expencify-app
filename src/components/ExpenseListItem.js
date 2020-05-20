@@ -27,7 +27,7 @@ numeral.register('locale', 'ukr', {
 // switch between locales
 numeral.locale('ukr');
 
-const ExpenseListItem = ({ accountNamed, namedCategory, description, amount, createdAt, id }) => (
+const ExpenseListItem = ({ accountNamed, namedCategory, description, amount, createdAt, id, props }) => (
     <Link name={id} className="list-item" to={`/edit/${id}`}>
         <div>
             <p className="list-item__sub-title list-item__green-data">{accountNamed}</p>
@@ -36,7 +36,14 @@ const ExpenseListItem = ({ accountNamed, namedCategory, description, amount, cre
             <span className="list-item__sub-title">{namedCategory}</span>
         </div>
 
-        <h3 className={"list-item__data" + ((amount > 0) ? ' list-item__green-data' : '')}>{numeral(amount/100).format('0,0.00 $')}</h3>     
+        <div className="list-item__amount">
+            <h3 className={"list-item__data" + ((amount > 0) ? ' list-item__green-data' : '')}>{numeral(amount/100).format('0,0.00 $')}</h3> 
+            <object className="list-item__copy-image" >
+                <Link to={`/create/${id}`}>
+                    <img src="/images/copy.svg" alt="copy-operation"/>
+                </Link>
+            </object>
+        </div>    
     </Link>
 );
 
