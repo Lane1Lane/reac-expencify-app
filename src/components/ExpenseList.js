@@ -44,7 +44,7 @@ export class ExpenseList extends React.Component {
                   {this.props.expenses.filter((expense) => moment(expense.createdAt).startOf('day').valueOf() === oneDay).map((expense) => {
                     let namedCategory = []
                     if (expense.category.length) {expense.category.split(',').forEach((category)=>{
-                      namedCategory.push(this.props.categories.find((cat) => cat.value === category).label)
+                      if (this.props.categories.find((cat) => cat.value === category)) {namedCategory.push(this.props.categories.find((cat) => cat.value === category).label)} else {namedCategory.push('"Категория удалена"')};
                     })} else {namedCategory.push('...')};
                     return <ExpenseListItem key={expense.id} accountNamed={this.props.accounts.find((account) => account.id === expense.account).name} namedCategory = {namedCategory.join(', ')} {...expense}/>;
                   })}

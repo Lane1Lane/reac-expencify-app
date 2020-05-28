@@ -17,6 +17,11 @@ const HeaderMain = ({ hideFilters, setTypesFilter, filters } ) => (
                 <Link className={"main-Header_Button" + (filters.types.find((type) => type.value === 0) ? " main-Header_Button-active" : '')} to="/accounts"
                     onClick={() => {hideFilters(); setTypesFilter([{label: 'Не выбрано', value: 0}])}}
                 >СЧЕТА</Link>
+                <Link className="main-Header_Button settings" to="/settings"
+                    // onClick={() => {hideFilters(); setTypesFilter([{label: 'Не выбрано', value: 0}])}}
+                >   
+                    <img src="/images/settings.svg" className="main-Header__img"/>
+                </Link>
             </div>
         </div>
     </div>

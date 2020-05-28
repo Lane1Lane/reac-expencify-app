@@ -6,6 +6,8 @@ export default (expenses, { accounts, categories, text, sortBy = 'date', startDa
       const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true
       const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true
       const textMatch = expense.description.toLowerCase().includes(text.toLowerCase());
+      const noteMatch = expense.note.toLowerCase().includes(text.toLowerCase());
+      const amountMatch = String(expense.amount/100).includes(text.toLowerCase());
       
       let accountMatch = 0;
       if (accounts.length) {
@@ -25,7 +27,7 @@ export default (expenses, { accounts, categories, text, sortBy = 'date', startDa
         typesMatch = ~types.map((type) => type.value).indexOf(expense.expenseType);
       } else {typesMatch = 1};
       
-      return startDateMatch && endDateMatch && textMatch && accountMatch && categoriesMatch && typesMatch;
+      return startDateMatch && endDateMatch && (textMatch || noteMatch || amountMatch) && accountMatch && categoriesMatch && typesMatch;
     }).sort((a, b) => {
       if (sortBy === 'date') {
         return b.createdAt - a.createdAt || b.realCreatedAt - a.realCreatedAt;

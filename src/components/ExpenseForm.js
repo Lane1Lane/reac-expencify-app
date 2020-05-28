@@ -91,7 +91,6 @@ class ExpenseForm extends React.Component {
     }
   };
   render() {
-    console.log(this.props.expense);
     return (
       <form className="form" onSubmit={this.onSubmit}>
         {this.state.error && <p className="form__error">{this.state.error}</p>}
@@ -122,7 +121,7 @@ class ExpenseForm extends React.Component {
         <CreatableSelect
           classNamePrefix="text-input"
           options={this.props.categories.filter((category) => category.type === this.state.expenseType)}
-          value={this.state.category.map((cat) => ({'value' : cat, 'label': this.props.categories.find(catName => catName.value === cat).label}))}
+          value={this.state.category.map((cat) => ({'value' : cat, 'label': this.props.categories.find(catName => catName.value === cat) ? this.props.categories.find(catName => catName.value === cat).label : '"Категория удалена"'}))}
           onCreateOption={this.onCreateCategory}
           onChange={this.onCategoryChange}
           isMulti

@@ -8,9 +8,18 @@ export default (state = categoriesReducerDefaultState, action) => {
                 action.category
             ]
         case 'EDIT_CATEGORY': 
-            return {}
+        return state.map((category) => {
+            if (category.value === action.id) {
+              return {
+                ...category,
+                ...action.updates
+              }
+            } else {
+              return category;
+            }
+          })
         case 'REMOVE_CATEGORY': 
-            return {}
+          return state.filter((category) => category.value !== action.id)
         case 'SET_CATEGORIES': 
             return action.categories;
         default:

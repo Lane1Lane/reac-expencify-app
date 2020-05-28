@@ -34,6 +34,24 @@
         padding: $m-size;
     }
 }
+.list-item-category {
+    @extend .list-item;
+    flex-direction: column;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.category {
+    font-weight: normal;
+}
+
+.list-item-category__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: $xs-size;
+}
 
 
 
@@ -114,4 +132,11 @@
     height: 4rem;
     width: 4rem;
     margin-left: auto;
+}
+
+.list-item__img {
+    display: flex;
+    margin: auto 0;
+    height: 2rem;
+    width: 2rem;
 }

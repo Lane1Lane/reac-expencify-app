@@ -31,12 +31,14 @@
     display: flex;
     justify-content: space-between;
     padding: 0;
+
 }
 
 .main-Header_Button {
     background: $dark-green;
     text-decoration: none;
     width: 100%;
+    height: 100%;
     border: 1px solid darken($silver, 7%);
     color: $dark-blue;
     display: flex;
@@ -46,11 +48,31 @@
     overflow: visible;
     transition: color 0.7s;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    // position: absolute;
+    // overflow: hidden;
 }
+
+.settings {
+    position: relative;
+    display: block;
+    width: auto;
+    padding: 0;
+    height: 100%;
+    padding: auto;
+}
+
 
 .main-Header_Button-active {
     // border-top: 5px solid darken($dark-green, 10%);
     // border-bottom: 5px solid darken($dark-green, 10%);
     // border-radius: 5px;
     color: white;
+}
+
+.main-Header__img {
+    // display: flex;
+    height: 100%;
+    // position: absolute;
+    max-height: 3rem;
+    // width: 3rem;
 }
