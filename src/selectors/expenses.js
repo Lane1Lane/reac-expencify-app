@@ -14,7 +14,6 @@ export default (expenses, { accounts, categories, text, sortBy = 'date', startDa
         accountMatch = ~accounts.map((account) => account.value).indexOf(expense.account);
       } else {accountMatch = 1};
 
-      // console.log(accountMatch);
       
       let categoriesMatch = 0;
       if (categories.length) {
@@ -26,8 +25,9 @@ export default (expenses, { accounts, categories, text, sortBy = 'date', startDa
       if (types.length) {
         typesMatch = ~types.map((type) => type.value).indexOf(expense.expenseType);
       } else {typesMatch = 1};
+
       
-      return startDateMatch && endDateMatch && (textMatch || noteMatch || amountMatch) && accountMatch && categoriesMatch && typesMatch;
+      return text.length < 2 ? (startDateMatch && endDateMatch && accountMatch && categoriesMatch && typesMatch) : (textMatch || noteMatch || amountMatch);
     }).sort((a, b) => {
       if (sortBy === 'date') {
         return b.createdAt - a.createdAt || b.realCreatedAt - a.realCreatedAt;
