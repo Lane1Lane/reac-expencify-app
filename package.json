@@ -2,8 +2,7 @@
   "name": "expencify",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Andrew Mead",
-  "license": "MIT",
+  "author": "Andrew",
   "scripts": {
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
